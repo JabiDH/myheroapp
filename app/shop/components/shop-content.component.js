@@ -13,17 +13,50 @@ var shop_service_1 = require('../../shop/services/shop.service');
 var ShopContentComponent = (function () {
     function ShopContentComponent(shopService) {
         this.shopService = shopService;
+        this.shoppingCart = [];
         this.setItems();
+        localStorage.setItem('shoppingCart', JSON.stringify(this.shoppingCart));
     }
     ShopContentComponent.prototype.setItems = function () {
         var _this = this;
         this.shopService.getItems()
             .subscribe(function (items) {
             console.log(items);
+            items.forEach(function (item) {
+                item.Image = _this.shopService.apiUrl + "/api/fileupload/" + item.Id;
+            });
             _this.items = items;
         }, function (err) {
             console.log(err);
         });
+    };
+    ShopContentComponent.prototype.setItemImages = function () {
+        var _this = this;
+        this.items.forEach(function (item) {
+            _this.shopService.getItemImage(item.Id)
+                .subscribe(function (img) {
+                item.Image = img;
+            }, function (err) {
+                console.log(err);
+            });
+        });
+    };
+    ShopContentComponent.prototype.addItemToShoppingCart = function (item) {
+        if (item) {
+            var items = this.shoppingCart.values();
+            var existingItem = items.return(function (x) { return x.Id == item.Id; }).value;
+            if (existingItem) {
+                existingItem.Quantity += 1;
+            }
+            else {
+                item.Quantity = 1;
+                this.shoppingCart.push(item);
+            }
+            var cart = JSON.parse(localStorage.getItem('shoppingCart'));
+            this.shoppingCart = cart;
+            localStorage.setItem('shoppingCart', JSON.stringify(this.shoppingCart));
+            console.log(this.shoppingCart);
+        }
     };
     ShopContentComponent = __decorate([
         core_1.Component({

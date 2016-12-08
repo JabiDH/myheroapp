@@ -9,18 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var ShopMenuComponent = (function () {
-    function ShopMenuComponent() {
+var ShoppingCartComponent = (function () {
+    function ShoppingCartComponent() {
+        var cart = JSON.parse(localStorage.getItem('shoppingCart'));
+        this.processCart(cart);
     }
-    ShopMenuComponent = __decorate([
+    ShoppingCartComponent.prototype.processCart = function (cart) {
+    };
+    ShoppingCartComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'shop-menu',
-            templateUrl: '../templates/shop-menu-template.html'
+            selector: 'shop-cart',
+            templateUrl: '../templates/shop-cart-template.html'
         }), 
         __metadata('design:paramtypes', [])
-    ], ShopMenuComponent);
-    return ShopMenuComponent;
+    ], ShoppingCartComponent);
+    return ShoppingCartComponent;
 }());
-exports.ShopMenuComponent = ShopMenuComponent;
-//# sourceMappingURL=shop-menu.component.js.map
+exports.ShoppingCartComponent = ShoppingCartComponent;
+//# sourceMappingURL=shop-cart.component.js.map

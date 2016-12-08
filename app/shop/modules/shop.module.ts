@@ -1,7 +1,7 @@
 import { NgModule }      from '@angular/core';
 import { CommonModule }       from '@angular/common';
 import { ShopComponent } from '../../shop/components/shop.component'
-import { ShopMenuComponent } from '../../shop/components/shop-menu.component'
+import { ShoppingCartComponent } from '../../shop/components/shop-cart.component'
 import { ShopContentComponent } from '../../shop/components/shop-content.component'
 import { ShopService } from '../../shop/services/shop.service'
 
@@ -14,7 +14,7 @@ import { ShopService } from '../../shop/services/shop.service'
     ],
     declarations: [
         ShopComponent,
-        ShopMenuComponent,
+        ShopContentComponent,
         ShopContentComponent
     ],
     exports: [

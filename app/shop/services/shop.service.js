@@ -14,13 +14,13 @@ var Rx_1 = require('rxjs/Rx');
 // Import RxJs required methods
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
-var apiUrl = "http://localhost:62412";
 var ShopService = (function () {
     function ShopService(http) {
         this.http = http;
+        this.apiUrl = "http://localhost:62412";
     }
     ShopService.prototype.getOrders = function () {
-        var url = apiUrl + "/api/orders";
+        var url = this.apiUrl + "/api/orders";
         var headers = new http_1.Headers({
             contentType: 'application/json',
             dataType: 'jsonp'
@@ -33,13 +33,27 @@ var ShopService = (function () {
         });
     };
     ShopService.prototype.getItems = function () {
-        var url = apiUrl + "/api/items";
+        var url = this.apiUrl + "/api/items";
         var headers = new http_1.Headers({
             contentType: 'application/json',
             dataType: 'jsonp'
         });
         return this.http.get(url)
             .map(function (response) { return response.json(); })
+            .catch(function (err) {
+            console.log(err);
+            return Rx_1.Observable.throw(err.json().error || 'Server Error');
+        });
+    };
+    ShopService.prototype.getItemImage = function (id) {
+        var url = apiUrl + "/api/fileupload/" + id;
+        var file = {};
+        return this.http.get(url)
+            .map(function (response) {
+            //window.open(window.URL.createObjectURL(file), "new");
+            file = new Blob([response.blob()]);
+            return window.URL.createObjectURL(file);
+        })
             .catch(function (err) {
             console.log(err);
             return Rx_1.Observable.throw(err.json().error || 'Server Error');

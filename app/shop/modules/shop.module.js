@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
 var shop_component_1 = require('../../shop/components/shop.component');
-var shop_menu_component_1 = require('../../shop/components/shop-menu.component');
 var shop_content_component_1 = require('../../shop/components/shop-content.component');
 var shop_service_1 = require('../../shop/services/shop.service');
 var ShopModule = (function () {
@@ -27,7 +26,7 @@ var ShopModule = (function () {
             ],
             declarations: [
                 shop_component_1.ShopComponent,
-                shop_menu_component_1.ShopMenuComponent,
+                shop_content_component_1.ShopContentComponent,
                 shop_content_component_1.ShopContentComponent
             ],
             exports: [
